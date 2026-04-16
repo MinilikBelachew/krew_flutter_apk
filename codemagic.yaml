@@ -23,13 +23,13 @@ workflows:
       - name: Build Android APK
         script: | 
           flutter build apk --debug
-      - name: Build iOS
+      - name: Build iOS (Simulator)
         script: | 
-          # Build for iOS (unsigned)
-          flutter build ios --release --no-codesign
+          # Build for iOS Simulator (required for Appetize.io)
+          flutter build ios --simulator
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
-      - build/ios/iphoneos/*.app
+      - build/ios/iphonesimulator/*.app
     publishing:
       email:
         recipients:
