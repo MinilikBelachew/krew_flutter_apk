@@ -20,12 +20,16 @@ workflows:
       - name: Run Unit & Widget Tests
         script: | 
           flutter test
-      - name: Build iOS IPA
+      - name: Build Android APK
         script: | 
-          # Building unsigned IPA for testing
-          flutter build ipa --release --no-codesign
+          flutter build apk --release
+      - name: Build iOS
+        script: | 
+          # Build for iOS (unsigned)
+          flutter build ios --release --no-codesign
     artifacts:
-      - build/ios/ipa/*.ipa
+      - build/app/outputs/flutter-apk/*.apk
+      - build/ios/iphoneos/*.app
     publishing:
       email:
         recipients:
