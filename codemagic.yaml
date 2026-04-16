@@ -22,7 +22,7 @@ workflows:
           flutter test
       - name: Build Android APK
         script: | 
-          flutter build apk --release
+          flutter build apk --debug
       - name: Build iOS
         script: | 
           # Build for iOS (unsigned)
