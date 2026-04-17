@@ -1,35 +1,36 @@
-# codemagic.yaml
-# Complete documentation at https://docs.codemagic.io/yaml/configuration-reference/
-
 workflows:
   ios-workflow:
-    name: iOS Build and Simulator Test
+    name: iOS Build and IPA
     max_build_duration: 60
     instance_type: mac_mini_m1
+
     environment:
       flutter: stable
       xcode: latest
       cocoapods: default
       vars:
-        # Define any environment variables here
         BUNDLE_ID: "com.krew.movers"
     scripts:
       - name: Fetch dependencies
-        script: | 
-          flutter packages pub get
-      - name: Run Unit & Widget Tests
-        script: | 
+        script: |
+          flutter pub get
+
+      - name: Run tests
+        script: |
           flutter test
+
       - name: Build Android APK
-        script: | 
+        script: |
           flutter build apk --debug
-      - name: Build iOS (Simulator)
-        script: | 
-          # Build for iOS Simulator (required for Appetize.io)
-          flutter build ios --simulator
+
+      - name: Build iOS IPA (REAL DEVICE)
+        script: |
+          flutter build ipa --release
+
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
-      - build/ios/iphonesimulator/*.app
+      - build/ios/ipa/*.ipa
+
     publishing:
       email:
         recipients:
