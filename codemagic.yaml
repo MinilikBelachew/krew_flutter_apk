@@ -23,13 +23,16 @@ workflows:
         script: |
           flutter build apk --debug
 
-      - name: Build iOS IPA (REAL DEVICE)
+      - name: Build iOS for Emulator
         script: |
-          flutter build ipa --release
+          flutter build ios --simulator --debug
+          # Zip the .app bundle for the online emulator
+          cd build/ios/iphonesimulator
+          zip -r ../../../Runner.zip Runner.app
 
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
-      - build/ios/ipa/*.ipa
+      - Runner.zip
 
     publishing:
       email:
